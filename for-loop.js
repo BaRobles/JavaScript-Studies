@@ -82,7 +82,7 @@ function calcAverage(arr){
 
 console.log(calcAverage(totals));
 
-console.log('____BILLS:____')
+console.log('____BILLS:____');
 console.log(array);
 console.log('____TIPS:____');
 console.log(tips);
