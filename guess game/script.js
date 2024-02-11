@@ -1,15 +1,5 @@
 'use strict'; 
 
-// document.querySelector('.message').textContent;
-
-// document.querySelector('.message').textContent = 'Correct Number!';
-// document.querySelector('.number').textContent = 13;
-// document.querySelector('.score').textContent = 10;
-
-
-// document.querySelector('.guess').value = 23;
-// console.log(document.querySelector('.guess').value);
-
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highscore = 0;
@@ -33,7 +23,7 @@ document.querySelector('.check').addEventListener('click', function () {
       highscore = score;
       document.querySelector('.highscore').textContent = highscore;
     }
-// when guess is wrong
+
   } else if (guess !== secretNumber) {
     if (score > 1) {
       displayMessage(guess > secretNumber ? '🦒 Too high!' : '🧸 Too low!');
