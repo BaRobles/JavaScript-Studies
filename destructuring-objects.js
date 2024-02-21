@@ -25,8 +25,7 @@ const restaurant = {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
 
-  // we imediatly destructure the object:
-  // we can also give default values
+  // destructuring the object:
   orderDelivery: function({starterIndex = 1, mainIndex = 0, time = '20:00', address}){
     console.log(`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}.`);
   }
@@ -42,7 +41,10 @@ restaurant.orderDelivery({
 
 // the order doesn't matter in objects, so we don't have to manually skip elements like we did in an array
 const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+console.log(name, openingHours, categories); // this will log: 
+// Classico Italiano
+// {thu: ... fri...}
+// ["Italian", "Pizz...]
 
 // changing the variable names:
 const {
@@ -51,7 +53,7 @@ const {
   categories: tags
 } = restaurant;
 // this will log the same as the above
-console.log(restaurantName, hours, tags);
+console.log(restaurantName, hours, tags); // the same as above
 
 
 // Giving Empty Arrays as Default Value:
