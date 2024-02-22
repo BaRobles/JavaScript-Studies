@@ -70,6 +70,7 @@ console.log(restaurant.openingHours.mon.open);
 if(restaurant.openingHours && restaurant.openingHours.mon)
   console.log(restaurant.openingHours.mon.open); 
 
+  // the same as above but 
   // WITH optional chaining
 console.log(restaurant.openingHours.mon?.open); // it will return undefined, instead an error
 //we can do this multiple times
@@ -80,7 +81,10 @@ const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 for(const day of days) {
   console.log(day);
+  // we cannot use dot notation on day here because it is not an actual property of restaurant:
   const open = restaurant.openingHours[day]?.open ?? 'closed';
+  // couldn't use || instead of ?? because of the 0 hour.
+
   console.log(`On ${day}, we open at ${open}`);
   // output
   // On mon, we open at closed
@@ -101,5 +105,6 @@ const users = [{
   name: 'jonas', email: 'hello@gmail.com'
 }];
 
+// if users exits, than take its name:
 console.log(users[0]?.name ?? 'User array empty'); // jonas
 
