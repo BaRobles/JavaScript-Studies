@@ -153,33 +153,16 @@ for(const [key2, value2] of entriesGame){
 console.log(`Odd of a draw: ${game.odds.x}.`);
 
 // BONUS
-console.log(allPlayers);
 
 const scoredPlayers = Object.values(game.scored);
-console.log("This is scoredPlayers:");
-console.log(scoredPlayers);
-
-// game['bagulho'] = 'something';
-// console.log(game);
 
 let object = {}
 let goalsCounter = 0;
 
-// for(i = 0; i < allPlayers.length; i++){
-//   for(j = 0; j < scoredPlayers.length; j++){
-//     if(allPlayers[i] === scoredPlayers[j]){
-//       goalsCounter += 1;
-//       object[scoredPlayers[j]] = goalsCounter;
-//     }
-//   }
-//   goalsCounter = 0;
-// }
-// console.log(object);
-
 for(player of allPlayers){
   for(playerScored of scoredPlayers){
     if(player === playerScored){
-      goalsCounter += 1;
+      goalsCounter++;
       object[player] = goalsCounter;
     }
   }
