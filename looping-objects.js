@@ -55,6 +55,7 @@ console.log(values);
 // Entire object
 const entries = Object.entries(openingHours);
 console.log(entries);
+// it returns an array of the given object's own string-keyed property key-value pairs.
 // (3) [Array(2), Array(2), Array(2)]
 // 0: 0: "thu"
 //    1: {open: 12, close: 22}

@@ -128,10 +128,8 @@ for (let i = 0; i < game.scored.length; i++){
   console.log(`Goal ${i + 1}: ${player}.`);
 };
 
-
+// #2 challenge
 const odds = Object.values(game.odds);
-console.log(odds);
-console.log(game.odds);
 
 let sum = 0;
 for(let odd of odds) {
@@ -140,5 +138,51 @@ for(let odd of odds) {
 let oddsAverage = sum / odds.length;
 console.log(`The average odd is ${oddsAverage}`);
 
+const entriesGame = Object.entries(game);
+// console.log(entriesGame);
+const entriesOdds = Object.entries(game.odds);
+// console.log(game.odds);
 
+for(const [key2, value2] of entriesGame){
+  for(const [key, value] of entriesOdds){
+    if(key === key2){
+      console.log(`Odd of victory ${value2}: ${value}.`);
+    }
+  }
+};
+console.log(`Odd of a draw: ${game.odds.x}.`);
 
+// BONUS
+console.log(allPlayers);
+
+const scoredPlayers = Object.values(game.scored);
+console.log("This is scoredPlayers:");
+console.log(scoredPlayers);
+
+// game['bagulho'] = 'something';
+// console.log(game);
+
+let object = {}
+let goalsCounter = 0;
+
+// for(i = 0; i < allPlayers.length; i++){
+//   for(j = 0; j < scoredPlayers.length; j++){
+//     if(allPlayers[i] === scoredPlayers[j]){
+//       goalsCounter += 1;
+//       object[scoredPlayers[j]] = goalsCounter;
+//     }
+//   }
+//   goalsCounter = 0;
+// }
+// console.log(object);
+
+for(player of allPlayers){
+  for(playerScored of scoredPlayers){
+    if(player === playerScored){
+      goalsCounter += 1;
+      object[player] = goalsCounter;
+    }
+  }
+  goalsCounter = 0;
+}
+console.log(object);
