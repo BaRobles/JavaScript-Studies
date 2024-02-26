@@ -61,4 +61,43 @@ console.log(rest.size);
 console.log('Here');
 console.log(rest.get(arr));
 
+// Map Interation
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct!'],
+  [false, 'Try again!'],
+]);
+
+console.log(question);
+
+// the array of arrays structure is the same structure that we see when we call: Object.entries());
+// this means you can write a new Map giving as a parameter the entries of an object:
+// const hoursMap = new Map(Object.entries(openingHours));
+
+
+console.log(question.get('question'));
+// each item of question will have both key and value, so we already destructure here:
+for (const [key, value] of question){
+  // we only want to print the info that has a number as key
+  if(typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+// const answer = Number(prompt('Your answer:'));
+const answer = 3;
+console.log(answer);
+
+// since this is true, we can plug it directly into the map:
+// question.get('correct') === answer
+// so the first get below will get the message stored in the key with the value true
+console.log(question.get(question.get('correct') === answer));
+
+// convert map to array (doesn't make sence in this case)
+console.log(...question);
+console.log([...question.entries()]);
+console.log([...question.keys()]);
+console.log([...question.values()]);
 
