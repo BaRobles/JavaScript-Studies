@@ -123,12 +123,18 @@ BONUS: Create an object called 'scorers' which contains the names of the players
 GOOD LUCK 😀
 */
 
+// 1.
 for (let i = 0; i < game.scored.length; i++){
   const player = game.scored[i];
   console.log(`Goal ${i + 1}: ${player}.`);
 };
 
-// #2 challenge
+// professor's solution
+// for (const [i, player] of game.scored.entries())
+//   console.log(`Goal ${i + 1}: ${player}.`);
+
+
+// 2.
 const odds = Object.values(game.odds);
 
 let sum = 0;
@@ -138,10 +144,20 @@ for(let odd of odds) {
 let oddsAverage = sum / odds.length;
 console.log(`The average odd is ${oddsAverage}`);
 
+// professor's solution
+// let average = 0;
+// const oddsT = Object.values(game.odds)
+// for(const odd of oddsT)
+//   average += odd;
+// average /= oddsT.length;
+// console.log(average);
+
+
+// 3.
 const entriesGame = Object.entries(game);
-// console.log(entriesGame);
+
 const entriesOdds = Object.entries(game.odds);
-// console.log(game.odds);
+
 
 for(const [key2, value2] of entriesGame){
   for(const [key, value] of entriesOdds){
@@ -152,20 +168,37 @@ for(const [key2, value2] of entriesGame){
 };
 console.log(`Odd of a draw: ${game.odds.x}.`);
 
+// professor's solution
+// for(const [team, odd] of Object.entries(game.odds)){
+//   const teamStr = team === 'x' ? draw : `victory ${game[team]}`;
+//   console.log(`Odd of ${teamStr}: ${odd}`);
+// }
+
 // BONUS
 
-const scoredPlayers = Object.values(game.scored);
+// const scoredPlayers = Object.values(game.scored);
 
-let object = {}
-let goalsCounter = 0;
+// let object = {}
+// let goalsCounter = 0;
 
-for(player of allPlayers){
-  for(playerScored of scoredPlayers){
-    if(player === playerScored){
-      goalsCounter++;
-      object[player] = goalsCounter;
-    }
-  }
-  goalsCounter = 0;
+// for(player of allPlayers){
+//   for(playerScored of scoredPlayers){
+//     if(player === playerScored){
+//       goalsCounter++;
+//       object[player] = goalsCounter;
+//     }
+//   }
+//   goalsCounter = 0;
+// }
+// console.log(object);
+
+// professor's solution:
+// So the solution is to loop over the array, and add the array elements as object properties, and then increase the count as we encounter a new occurence of a certain element
+const scorers = {};
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
 }
-console.log(object);
+console.log(scorers);
+
+// syntax to send key and value to object:
+// objectName[key] = value
