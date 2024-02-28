@@ -232,30 +232,33 @@ const gameEvents = new Map([
   [92, '🔶 Yellow card'],
 ]);
 
+// 2.
 gameEvents.delete(64);
 console.log(gameEvents);
 
-const events = new Set(gameEvents.values());
-console.log(events);
+// 1.
+// const events = new Set(gameEvents.values());
+// const eventsArray = [...events];
 
-const eventsArray = [...events];
-console.log('Events Array:');
-console.log(eventsArray);
+// professor's solution:
+const events = [...new Set(gameEvents.values())];
 
-let eventsKeys = [...gameEvents.keys()];
-console.log('Events Keys');
-console.log(eventsKeys);
+// 3.
+console.log(`An event happened, on average, every ${90 / gameEvents.size} minutes.`);
 
-let average = 0;
-let result = 0;
+// professor's bonus lesson:
+// since there was an event at 92 minutes, we can be more precise in our calculation:
+const time = [...gameEvents.keys()].pop()
+// getting the last value using pop (not because we want to remove it, but because it returns the last element)
+console.log(`An event happened, on average, every ${time / gameEvents.size} minutes.`);
 
-for (let i = 0; i < eventsKeys.length - 1; i++){
-  result += eventsKeys[i+1] - eventsKeys[i];
-  average = result / gameEvents.size; 
-}
-
-console.log(`An event happened, on average, every ${average} minutes.`);
-
+// 4.
 for (const [key, value] of gameEvents){
   key < 45 ? console.log(`[FIRST HALF] ${key}: ${value}`) : console.log((`[SECOND HALF] ${key}: ${value}`));
+}
+
+// professor's solution:
+for (const [min, event] of gameEvents){
+  const half = min <= 45 ? 'FIRST' : 'HALF' 
+  console.log(`[${half} HALF] ${min}: ${event}`)
 }
