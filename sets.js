@@ -48,7 +48,7 @@ for (const order of orderSet) console.log(order);
 // Example of use:
 const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
 
-// using sprea to build an array with the values:
+// using spread to build an array with the values:
 const staffUnique = [...new Set(staff)];
 console.log(staffUnique);
 // ['Waiter', 'Chef', 'Manager']
