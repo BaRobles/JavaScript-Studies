@@ -39,19 +39,62 @@ let clickCount = 0;
 
 // document.body.append(document.createElement('button'));
 
+// button.addEventListener('click', function(){
+//   clickCount++;
+//   const text = document.querySelector('textarea').value;
+//   const noSpaceText = text.replace(/\s/g, '');
+//   textLower = noSpaceText.toLowerCase();
+//   let firstHalf, secondHalf;
+
+//   if(textLower.includes('_')){
+//     [firstHalf, secondHalf] = textLower.split('_');
+//   }
+
+//   const camelCase = [firstHalf, secondHalf[0].toUpperCase(), secondHalf.slice(1), ' ', '✅'.repeat(clickCount)].join('');
+//   console.log(camelCase);
+// });
+
+
 button.addEventListener('click', function(){
-  clickCount++;
   const text = document.querySelector('textarea').value;
-  const noSpaceText = text.replace(/\s/g, '');
-  textLower = noSpaceText.toLowerCase();
-  let firstHalf, secondHalf;
-
-  if(textLower.includes('_')){
-    [firstHalf, secondHalf] = textLower.split('_');
+  textLower = text.toLowerCase();
+  const array = textLower.split('\n');
+  console.log(array);
+  let i = 1;
+  for (const a of array){
+    let words = a.trim();
+    if(words.includes('_')){
+      const [firstHalf, secondHalf] = words.split('_');
+      console.log(`${firstHalf}${secondHalf[0].toUpperCase()}${secondHalf.slice(1)} ${'✅'.repeat(i)}`);  
+      i++;
+    }
   }
-
-  const camelCase = [firstHalf, secondHalf[0].toUpperCase(), secondHalf.slice(1), ' ', '✅'.repeat(clickCount)].join('');
-  console.log(camelCase);
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+// document.querySelector('button').addEventListener('click', function () {
+//   const text = document.querySelector('textarea').value;
+//   const rows = text.split('\n');
+
+//   for (const [i, row] of rows.entries()) {
+//     const [first, second] = row.toLowerCase().trim().split('_');
+
+//     const output = `${first}${second.replace(
+//       second[0],
+//       second[0].toUpperCase()
+//     )}`;
+//     console.log(`${output.padEnd(20)}${'✅'.repeat(i + 1)}`);
+//   }
+// });
 
