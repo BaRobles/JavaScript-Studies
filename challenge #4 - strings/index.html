@@ -6,10 +6,12 @@
   <title>Challenge #4</title>
   <style>
     body {
-      height: 100vh;
+      height: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       background: linear-gradient(to top left, #28b487, #7dd56f);
+      background-repeat: no-repeat;
       margin-right: 10%;
     }
     h1 {
@@ -30,7 +32,6 @@
       background-color: rgb(255, 77, 0);
       border: none;
       border-radius: 8px;
-      box-sizing: border-box;
     }
  
     button:hover {
@@ -38,8 +39,8 @@
     }
 
     button:active{
-      width: 181px;
-      height: 36px;
+      transform: scale(.99);
+      outline: 2px solid transparent;
     }
     textarea {
       width: 300px;
@@ -50,7 +51,15 @@
 </head>
 <body>
   <h1>Click on the button to send your text!</h1>
-  
+
+  <div>
+    <textarea name="container" id="" cols="30" rows="2"></textarea>
+  </div>
+  <div>
+    <button>Click Me!</button>
+  </div>
+
+
 </body>
 <script src="script.js"></script>
 </html>
