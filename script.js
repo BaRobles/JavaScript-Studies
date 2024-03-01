@@ -93,9 +93,9 @@ transformer('JavaScript is the best!', upperFirstWord);
 transformer('JavaScript is the best!', oneWord); 
 // Original string: JavaScript is the best!
 // Transformed by: oneWord
-//Transformed string: javascriptisthebest!
+// Transformed string: javascriptisthebest!
 
-const high5 = function(){
+const high5 = function() {
   console.log('👋');
 }
 
@@ -103,3 +103,27 @@ document.body.addEventListener('click', high5)
 
 
 ['Barbara', 'Martha', 'Adam'].forEach(high5); // 3 👋 (it will call the function high5 for wach element of the array) 
+
+// Functions returning functions
+
+const greet = function(greeting){
+  return function(name){
+    console.log(`${greeting} ${name}`);
+  }
+}
+
+// greet returns a function, which is 
+// attributed to greeterHey, which is
+// a function now!
+const greeterHey = greet('Hey');
+greeterHey('Jonas'); // Hey Jonas
+greeterHey('Steven'); // Hey Steven
+
+// we can do it in one line:
+greet('Hello')('Jonas'); // Hello Jonas
+
+// Functions returning functions - ARROW functions!
+const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
+greet('Hello')('Steven'); // Hello Steven
+
+
