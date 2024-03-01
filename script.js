@@ -41,9 +41,11 @@ const checkIn = function(flightNum, passenger) {
   passenger.name = 'Ms. ' + passenger.name;
 
   if(passenger.passport === 404385922910){
-    alert('Check in');
+    // alert('Check in');
+    console.log('Check in');
   } else {
-    alert('Wrong passport!');
+    // alert('Wrong passport!');
+    console.log('Wrong passport!');
   }
 }
 
@@ -63,6 +65,41 @@ const newPassport = function(person){
 newPassport(client);
 checkIn(flight, client); // Wrong passport... this to show how problematic it can be to change objects! Because above the passport was accepted
 
+// HIGHER-ORDER FUNCTIONS
+
+const oneWord = function(str){
+  return str.replace(/ /g, '').toLowerCase();
+}
+
+const upperFirstWord = function(str){
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+}
+
+// this is a higher-order function:
+const transformer = function(str, fn){
+  console.log(`Original string: ${str}`); // 
+  console.log(`Transformed string: ${fn(str)}`); 
+
+  // we call the function property 'name'
+  console.log(`Transformed by: ${fn.name}`);
+}
+
+transformer('JavaScript is the best!', upperFirstWord); 
+// Original string: JavaScript is the best!
+// Transformed string: JAVASCRIPT is the best!
+// Transformed by: upperFirstWord
+
+transformer('JavaScript is the best!', oneWord); 
+// Original string: JavaScript is the best!
+// Transformed by: oneWord
+//Transformed string: javascriptisthebest!
+
+const high5 = function(){
+  console.log('👋');
+}
+
+document.body.addEventListener('click', high5)
 
 
-
+['Barbara', 'Martha', 'Adam'].forEach(high5); // 3 👋 (it will call the function high5 for wach element of the array) 
