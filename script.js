@@ -102,7 +102,7 @@ const high5 = function() {
 document.body.addEventListener('click', high5)
 
 
-['Barbara', 'Martha', 'Adam'].forEach(high5); // 3 👋 (it will call the function high5 for wach element of the array) 
+let forEachName = ['Barbara', 'Martha', 'Adam'].forEach(high5); // 3 👋 (it will call the function high5 for each element of the array) 
 
 // Functions returning functions
 
@@ -127,3 +127,63 @@ const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
 greet('Hello')('Steven'); // Hello Steven
 
 
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+
+lufthansa.book(239, 'Barbara Robles'); // Barbara Robles booked a seat on Lufthansa flight LH239
+lufthansa.book(635, 'Sebas Vassil') // John Smith booked a seat on Lufthansa flight LH635
+console.log(lufthansa);
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+// what we do below is only possible because JS accepts
+// first class functions.
+// we take the lufthansa book function and store it
+// in a variable, just so that we don't repeat the
+// code in the eurowings object.
+const book = lufthansa.book;
+
+// book(23, 'Sarah Williams'); 
+// above: won't work, because this is a regular 
+// function, not a method, and the 'this' keyword 
+// won't point to lufthansa!
+
+// we now have to tell JS explicitly what should be the 'this' keyword
+
+// CALL METHOD
+book.call(eurowings, 23, 'Sarah Williams');
+// what calls the book is the call method
+console.log(eurowings);
+book.call(lufthansa, 239, 'Mary Cooper');
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+}
+
+book.call(swiss, 543, 'Joana Adams');
+console.log(swiss);
+
+// APPLY METHOD
+// it does the same thing as the call, but it doesn't receive the list of arguments, instead, it receives an array
+
+const flightData = [583, 'George Cooper'];
+book.apply(swiss, flightData);
+console.log(swiss);
+// but apply is not used anymore, because we can still do this:
+book.call(swiss, ...flightData);
