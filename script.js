@@ -99,7 +99,7 @@ const high5 = function() {
   console.log('👋');
 }
 
-document.body.addEventListener('click', high5)
+// document.body.addEventListener('click', high5)
 
 
 let forEachName = ['Barbara', 'Martha', 'Adam'].forEach(high5); // 3 👋 (it will call the function high5 for each element of the array) 
@@ -187,3 +187,73 @@ book.apply(swiss, flightData);
 console.log(swiss);
 // but apply is not used anymore, because we can still do this:
 book.call(swiss, ...flightData);
+
+// BIND METHOD
+// it also allows to set 'this' keyword.
+// but bind does not imediatly call the function, it returns a new function to which the 'this' keyword is binded.
+
+const bookEw = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEw(44, 'Steven Williams');
+
+// calling Ew only for flight 23
+const bookEw23 = book.bind(eurowings, 23);
+// and now the function only needs the name:
+bookEw23('Barbara Robles');
+bookEw23('Martha McCarthy');
+
+// what we did above is called PARTIAL APPLICATION = part of arguments of the original function are already set.
+
+// With Event Listeners
+
+const buyPlaneBtn = document.createElement('button');
+buyPlaneBtn.textContent = 'Buy Plane';
+buyPlaneBtn.className = 'buy';
+document.body.append(buyPlaneBtn);
+buyPlaneBtn.style.width = 'auto';
+buyPlaneBtn.style.height = 'auto';
+buyPlaneBtn.style.padding = '10px 20px';
+buyPlaneBtn.style.borderRadius = '10px';
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function(){
+  console.log(this);
+  this.planes++
+  console.log(this.planes);
+}
+
+// document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane) // this won't work... because 'this' will be the html element.
+// That happens because in the event handler function, the 'this' keyword is always points to the element to which the handler is attached to 
+// eventhough in lufthansa.buyPlane the 'this' is pointing to lufthansa... solution:
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa))
+// we use bind, since it lets us define this, but also because it returns a function
+
+
+// Partial Application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+// lets create a function for a tax that we apply all the time:
+const addVAT = addTax.bind(null, 0.23);
+// null - because here we don't have 'this' keyword
+// this is how addVAT looks now:
+// addVAT = value => value + value * rate;
+
+console.log(addVAT(100));
+console.log(addVAT(23));
+
+// doing the same as above, creating a function that returns a function with the rate preset:
+const addTaxRate = function(rate){
+  return function(value) {
+    return value + value * rate;
+  }
+}
+const addVAT2 = addTaxRate(0.23);
+
+console.log(addVAT2(100));
+console.log(addVAT2(23));
