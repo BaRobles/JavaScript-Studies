@@ -225,13 +225,14 @@ lufthansa.buyPlane = function(){
 }
 
 // document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane) // this won't work... because 'this' will be the html element.
-// That happens because in the event handler function, the 'this' keyword is always points to the element to which the handler is attached to 
+// That happens because in the event handler function, the 'this' keyword always points to the element to which the handler is attached,
 // eventhough in lufthansa.buyPlane the 'this' is pointing to lufthansa... solution:
 
+// How to solve the 'this' keyword problem:
 document
   .querySelector('.buy')
   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa))
-// we use bind, since it lets us define this, but also because it returns a function
+// we use bind, since it lets us define 'this', but also because it returns a function
 
 
 // Partial Application
