@@ -288,3 +288,31 @@ runOnce();
 // we no longer need to create a function for that anymore, but IIFE are still used to functions that must be executed just once.
 
 
+// CLOSURES
+
+const secureBooking = function() {
+  let passengerCount = 0;
+
+  return function(){
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  }
+}
+
+const booker = secureBooking();
+
+booker(); // 1 passengers
+booker(); // 2 passengers
+booker(); // 3 passengers
+
+// how can this be? The secureBooking function already stopped executing, but the return function keeps execution from the previous one eveytime it is called! 
+// Thanks to the closure, a function does not looses conexion to the variables that existed at the function's birth place.
+// The closure has priority over the scope chain!
+// A closure is the closed-over variable environment of the execution context in which a function was created, even after that execution context is gone;
+// A closure gives a function access to all the variables of its parent function, even after that parent function has returned. The function keeps a reference to its outer scope, which preserves the scope chain throughout time.
+// A closure makes sure that a function doesn't loose connection to variables that existed at the function's birth place.
+// A closure is like a backpack that a function carries around whenever it goes. This backpack has all the variables that were present in the environment where the function was created.
+
+// to see the scopes of booker function:
+console.dir(booker); // check [[Scopes]] to see secureBooking function and the number that passengerCount is at the moment. 
+// [[]] means that it is an internal property which we cannot access from our code.
