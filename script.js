@@ -258,3 +258,33 @@ const addVAT2 = addTaxRate(0.23);
 
 console.log(addVAT2(100));
 console.log(addVAT2(23));
+
+// IMMEDIATELY INVOKED FUNCTION EXPRESSIONS (IIFE)
+
+// function that are executed only once and immediately
+
+const runOnce = function(){
+  console.log('This will never run again.');
+}
+runOnce();
+
+// we can't just write function(), so we have to
+// transform the statement into an expression,
+// we do this by wrapping all into ( ):
+(function(){
+  console.log('This will never run again.');
+})();
+// the last () above is there to immediately call the function!
+
+// we can also do it with arrow functions
+(() => console.log('This will ALSO never run again'))();
+
+// for security, we can create a block to encapsulate variables:
+{
+  const isPrivate = 23; // cannot be accessed from outside
+  var noPrivate = 46; // can be accessed from outside
+}
+
+// we no longer need to create a function for that anymore, but IIFE are still used to functions that must be executed just once.
+
+
