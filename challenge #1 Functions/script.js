@@ -40,56 +40,41 @@ const poll = {
   answers: new Array(4).fill(0),
 
   registerNewAnswer(){
-    let answerInput = prompt('What is your favourite programming language?\n0: JavaScript\n1: Python\n2: Rust\n3: C++\n(Write option number)');
-    if (answerInput >= 0 && answerInput <= 3) {
-      this.answers[answerInput]++
-    } else {
-      alert('Only numbers between 0-3!');
-      this.registerNewAnswer();
-    }
-    this.displayResults(this.answers);
+    const answer = Number(
+      prompt(
+        `${this.question}\n${this.options.join('\n')}\nWrite option number)`
+      )
+    );
+    console.log(answer);
+
+    typeof answer === 'number' && 
+      answer < this.answers.length && 
+      this.answers[answer]++;
+
+    this.displayResults();
+    this.displayResults('string');
   },
-  displayResults(results){
-    if(Array.isArray(results)){
-      console.log(results);
-    } else if (typeof results === 'string') {
-      const result = results.split(' ');
-      console.log(result);
-      let stringResult = [];
 
-      // for(const r of result){
-      //   stringResult.push(`${r}, `)
-      // }
-
-      // const lastEl = stringResult[stringResult.length - 1];
-
-      // stringResult[lastEl] = `${lastEl.trim()}.`;
-
-      // console.log(`Poll results are ${stringResult}`);
-      
-      for (let i = 0; i < results.length; i++){
-        if(i === results.length - 1){
-          stringResult.push(`${results[i]}.`);
-        } else {
-          stringResult.push(`${results[i]}, `);
-        }
-      }
-      const finalResult = stringResult.join('');
-      console.log(`Poll results are ${finalResult}`);
-      
-    } else {
-      console.log('Invalid format specified');
+  displayResults(type = 'array'){
+    if(type === 'array') {
+      console.log(this.answers);
+    } else if (type === 'string'){
+      console.log(`Poll results are ${this.answers.join(', ')}`);
     }
-  } 
-
-
-
-
+  }
 };
 
 
-const pollBtn = document.querySelector('.poll');
+document
+  .querySelector('.poll')
+  .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-pollBtn.addEventListener('click', poll.registerNewAnswer.bind(poll));
+// console.log(poll.answers);
 
-console.log(poll.answers);
+// the call method allows us to user another 'this' keyword
+// we create a new object, called answers:
+poll.displayResults.call({ answers: [5, 2, 3] }, 'string'); // Poll results are 5, 2, 3
+
+
+// [5, 2, 3]
+// [1, 5, 3, 9, 6, 1]
