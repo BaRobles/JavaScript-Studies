@@ -314,5 +314,50 @@ booker(); // 3 passengers
 // A closure is like a backpack that a function carries around whenever it goes. This backpack has all the variables that were present in the environment where the function was created.
 
 // to see the scopes of booker function:
-console.dir(booker); // check [[Scopes]] to see secureBooking function and the number that passengerCount is at the moment. 
+console.dir(booker); 
+// check [[Scopes]] to see secureBooking function and the number that passengerCount is at the moment. 
 // [[]] means that it is an internal property which we cannot access from our code.
+
+
+// Example 1
+let f;
+
+const g = function(){
+  const a = 23;
+  f = function(){
+    console.log(a * 2);
+  }
+}
+
+g(); // the result of this function is that a will be 23, and f will be the function.
+f(); // 46
+
+// but let's now create another function
+
+const h = function(){
+  const b = 777;
+  f = function(){
+    console.log(b * 2);
+  }
+}
+
+h(); // here, f will be assigned again!
+f(); // 1554
+
+console.dir(f); // we will see in the closure the value of b and no longer the value of a.
+
+// Example 2
+const boardPassengers = function(n, wait){
+  const perGroup = n / 3;
+
+  setTimeout(function(){
+    console.log(`We are now boarding all ${n} passengers.`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers.`);
+  }, wait * 1000);
+
+
+  console.log(`Will start boarding in ${wait} seconds.`);
+}
+
+const perGroup = 1000; // it won't use this one, because the closure has priority, even over the scope chain!
+boardPassengers(180, 3);
