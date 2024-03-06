@@ -121,3 +121,19 @@ console.log([...arr, ...arr2]);
 // JOIN
 console.log(letters.join(' - ')); // a - b - c - d - e - f - g - h - i - j
 // above is a string!
+
+// THE NEW AT METHOD
+
+const arr3 = [23, 11, 64];
+console.log(arr[0]); // 23
+console.log(arr.at(0)); // 23
+
+// getting the last of the array without knowing its length
+console.log(arr3[arr3.length - 1]); // 64
+console.log(arr3.slice(-1)); // [64]
+console.log(arr3.slice(-1)[0]); // 64
+// in the above line: first extracts the last element of arr3 using arr3.slice(-1), resulting in [64]. Then, [0] is used to access the first (and only) element of this array, which is 64.
+console.log(arr3.at(-1)); // 64
+
+console.log('barbara'.at(0)); // b
+console.log('barbara'.at(-1)); // a
