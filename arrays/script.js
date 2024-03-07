@@ -63,6 +63,36 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+
+const displayMovements = function(movements) {
+  containerMovements.innerHTML = '';
+
+  movements.forEach(function(mov, i){
+    const type = mov > 0 ? 'deposit' : 'withdrawal'
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+      <div class="movements__value">${mov}</div>
+    </div>
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+
+    // if we used beforeend, the order would be inverted: each new element, would be displayed at the end of the page!
+  });
+}
+
+displayMovements(account1.movements);
+
+
+
+
+
+
+
+
+
+/*
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -209,3 +239,4 @@ currenciesUnique.forEach(function(value, key, map){
 // script.js:204 GBP: GBP
 // script.js:204 EUR: EUR
 // sets do not have key, but develpers of JS decide to leave it like this in order to not confuse other developers... we could substitute key for an underscore, which in JS means a throw away variable (useless variable)
+*/
