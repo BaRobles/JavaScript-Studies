@@ -384,3 +384,25 @@ console.log(movementsDescriptions);
 
 // output:
 // ['Movement 1: you deposited 200.', 'Movement 2: you deposited 450.', 'Movement 3: you withdrew 400', 'Movement 4: you deposited 3000.', 'Movement 5: you withdrew 650', 'Movement 6: you withdrew 130', 'Movement 7: you deposited 70.', 'Movement 8: you deposited 1300.']
+
+// FILTER METHOD
+
+// we want to filter the negative values!
+const deposits = movements.filter(function(mov){
+  return mov > 0;
+});
+
+console.log('MOVEMENTS');
+console.log(movements);
+console.log(deposits); // will print only the positive values!
+
+// doing the same thing with for of loop:
+const depositsFor = [];
+for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+console.log(depositsFor);
+
+// the advantage of using filter is that it we can chain various methods together.
+
+const withdrawals = movements.filter(mov => mov < 0 );
+
+console.log(withdrawals);
