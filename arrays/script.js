@@ -84,6 +84,36 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements);
 
+const createUsernames = function(accs){
+  accs.forEach(function(acc){
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map( name => name[0] )
+    .join('');
+  })
+};
+
+// we do not return anything from the forEach because it already produces a side effect.
+console.log('====');
+createUsernames(accounts);
+console.log(accounts); // we will see the property username in accounts objects!
+
+
+// console.log(createUsernames('Steven Thomas Williams')); // username: stw
+
+// const username = user
+//   .toLowerCase()
+//   .split(' ')
+//   .map( name => name[0] )
+//   .join('');
+// toLowerCase returns a string
+// the split method returns an array, and we will use the map method to loop over it and get the initials.
+// since the result of this will be an array ['s', 't', 'w'], we can call the join method, which will result in stw.
+// above is the same as:
+// .map(funciton(name){
+//   return name[0];
+// });
 
 
 
@@ -92,7 +122,7 @@ displayMovements(account1.movements);
 
 
 
-/*
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -239,4 +269,118 @@ currenciesUnique.forEach(function(value, key, map){
 // script.js:204 GBP: GBP
 // script.js:204 EUR: EUR
 // sets do not have key, but develpers of JS decide to leave it like this in order to not confuse other developers... we could substitute key for an underscore, which in JS means a throw away variable (useless variable)
+
+
+///////////////////////////////////////
+// Coding Challenge #1
+
+/* 
+Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
+
+Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
+
+1. Julia found out that the owners of the FIRST and the LAST TWO dogs actually have cats, not dogs! So create a shallow copy of Julia's array, and remove the cat ages from that copied array (because it's a bad practice to mutate function parameters)
+2. Create an array with both Julia's (corrected) and Kate's data
+3. For each remaining dog, log to the console whether it's an adult ("Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐶")
+4. Run the function for both test datasets
+
+HINT: Use tools from all lectures in this section so far 😉
+
+TEST DATA 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3]
+TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+
+
+
+// const dogsJulia = [3, 5, 2, 12, 7];
+// const dogsKate = [4, 1, 15, 8, 3];
+
+// console.log(juliasCopy);
+
+
+// const checkDogs = function(dogsJulia, dogsKate) {
+//   const juliasCopy = dogsJulia.slice(1, -2);
+//   const totalDogs = [...juliasCopy, ...dogsKate]
+//   totalDogs.forEach(function(age, i) {
+//     if(age < 3) {
+//       console.log(`Dog number ${i + 1} is still a puppy 🐶"`);
+//     } else {
+//       console.log(`Dog number ${i + 1} is an adult, and is ${age} years old`);
+//     }
+//   });
+// }
+
+
+
+// instructor's solution:
+
+const checkDogs = function(dogsJulia, dogsKate) {
+  const dogsJuliaCorrected = dogsJulia.slice();
+  dogsJuliaCorrected.splice(0, 1);
+  dogsJuliaCorrected.splice(-2);
+  const dogs = dogsJuliaCorrected.concat(dogsKate);
+  dogs.forEach(function(dog, i) {
+    if(dog <= 3) {
+      console.log(`Dog number ${i + 1} is still a puppy 🐶"`);
+    } else {
+      console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old`);
+    }
+  });
+}
+
+checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+console.log('========================');
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 */
+
+
+// DATA TRANSFORMATIONS WITH MAP, FILTER AND REDUCE
+
+// MAP = similar to forEach method, but with the difference that it creates a new array. It takes an array, loops over it, and at each iteration applies a callback function to it.
+
+// MAP x FOREACH = forEach creates side effects, it returns each element, one by one. But map returns an array with everything.
+
+// FILTER = it also returns a new array. It is used to filter elements on the original array which satisfies certain conditions
+
+// REDUCE = boils down all array elements to one single value (e.g. adding all elements together). There is no new array, just a value.
+
+const eurToUsd = 1.1;
+
+// we have to call the own array as a parameter (mov here)
+// const movementsUSD = movements.map(function(mov){
+//   return mov * eurToUsd;
+//   // return 32 would output [23, 23, 23, 23, 23...]
+// });
+
+// we can write the above like this:
+
+const movementsUSD = movements.map(mov => mov * eurToUsd); 
+// removed the parenthesis, since there is only onw parameter;
+// removed curly brackets and return, since there is only one line of code
+
+
+
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(movementsUSD); // [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+
+
+// doing the same thing as MAP but with for of
+const movementsUSDfor = [];
+for(const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+console.log(movementsUSDfor);
+
+// MAP is more suitable for a functional programming, and it is more modern.
+
+// just like the forEach method, the map also has access to the same parameters: values, index and the whole array.
+
+const movementsDescriptions = movements.map((mov, i) =>
+  `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+    mov
+  )}.`
+);
+
+console.log(movementsDescriptions);
+
+// output:
+// ['Movement 1: you deposited 200.', 'Movement 2: you deposited 450.', 'Movement 3: you withdrew 400', 'Movement 4: you deposited 3000.', 'Movement 5: you withdrew 650', 'Movement 6: you withdrew 130', 'Movement 7: you deposited 70.', 'Movement 8: you deposited 1300.']

@@ -56,6 +56,7 @@ const restaurant = {
 // 1. Destructuring
 // SPREAD, because on RIGHT side of =
 const arr = [1, 2, ...[3, 4]];
+console.log(arr); // [1, 2, 3, 4]
 
 // REST, because on LEFT side of = 
 const [a, b, ...others] = [1, 2, 3, 4, 5];
@@ -92,7 +93,7 @@ add2(8, 4, 3, 5, 5, 6, 7) //38
 
 const x = [23, 5, 7];
 // calling the array above:
-// here o pac the values and in the function, we unpac them.
+// here we pac the values and in the function, we unpac them.
 add2(...x); // 35
 
 restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach'); // mushrooms ["onion", "olives", "spinach"]
