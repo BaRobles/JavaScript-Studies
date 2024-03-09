@@ -84,6 +84,14 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function(movements){
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+console.log('===== CALC DISPLAY');
+
+calcDisplayBalance(account1.movements);
+
 const createUsernames = function(accs){
   accs.forEach(function(acc){
     acc.username = acc.owner
@@ -152,7 +160,7 @@ console.log(arr.slice()); // ["a", "b", "c", "d", e"]
 // also like this:
 console.log([...arr]);
 
-// SPLICE
+// *********** SPLICE ***********
 // it works similar to slice, but it mutates the original array!
 console.log('Splice:');
 // console.log(arr.splice(2)); // ["c", "d", "e"]
@@ -163,7 +171,7 @@ arr.splice(1, 2); // extracts 'b' and 'c', because the second element is the num
 console.log(arr);
 // console.log(arr); // ["a", "b"]
 
-// REVERSE
+// *********** REVERSE ***********
 // it mutates the original array
 console.log('Reverse:');
 arr = ['a', 'b', 'c', 'd', 'e'];
@@ -171,7 +179,7 @@ const arr2 = ['j', 'i', 'h', 'g', 'f'];
 console.log(arr2.reverse()); // ['f', 'g', 'h', 'i', 'j']
 console.log(arr2); // ['f', 'g', 'h', 'i', 'j']
 
-// CONCAT
+// *********** CONCAT ***********
 // doesn't mutate original arrays
 const letters = arr.concat(arr2);
 console.log(letters); // ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
@@ -182,7 +190,7 @@ console.log([...arr, ...arr2]);
 console.log(letters.join(' - ')); // a - b - c - d - e - f - g - h - i - j
 // above is a string!
 
-// THE NEW AT METHOD
+// ********* THE NEW AT METHOD ************
 
 const arr3 = [23, 11, 64];
 console.log(arr[0]); // 23
@@ -198,7 +206,7 @@ console.log(arr3.at(-1)); // 64
 console.log('barbara'.at(0)); // b
 console.log('barbara'.at(-1)); // a
 
-// LOOPING ARRAYS: FOREACH
+// ********* LOOPING ARRAYS: FOREACH METHOD ************
 
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -210,8 +218,6 @@ for (const movement of movements) {
     console.log(`You withdrew ${Math.abs(movement)}`);
   }
 }
-
-console.log('======================');
 
 // doing the same thing as above, but with forEach:
 movements.forEach(function(movement) {
@@ -241,7 +247,7 @@ movements.forEach(function(mov, index, array) {
 
 // you cannot breakout from a forEach loop, instead, it will always loop over the entire array. So if you need to break in the middle of the loop, use the for of loop.
 
-// FOREACH WITH MAPS:
+// ********* FOREACH WITH MAPS ***********
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -257,7 +263,7 @@ currencies.forEach(function(value, key, map){
 // script.js:193 EUR: Euro
 // script.js:193 GBP: Pound sterling
 
-// FOREACH WITH SETS:
+// *********** FOREACH WITH SETS ***********
 
 const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
 currenciesUnique.forEach(function(value, key, map){
@@ -385,7 +391,7 @@ console.log(movementsDescriptions);
 // output:
 // ['Movement 1: you deposited 200.', 'Movement 2: you deposited 450.', 'Movement 3: you withdrew 400', 'Movement 4: you deposited 3000.', 'Movement 5: you withdrew 650', 'Movement 6: you withdrew 130', 'Movement 7: you deposited 70.', 'Movement 8: you deposited 1300.']
 
-// FILTER METHOD
+// ******** FILTER METHOD ********
 
 // we want to filter the negative values!
 const deposits = movements.filter(function(mov){
@@ -397,12 +403,41 @@ console.log(movements);
 console.log(deposits); // will print only the positive values!
 
 // doing the same thing with for of loop:
-const depositsFor = [];
-for (const mov of movements) if (mov > 0) depositsFor.push(mov);
-console.log(depositsFor);
+// const depositsFor = [];
+// for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+// console.log(depositsFor);
 
 // the advantage of using filter is that it we can chain various methods together.
 
 const withdrawals = movements.filter(mov => mov < 0 );
 
 console.log(withdrawals);
+
+// ******* REDUCE METHOD *******
+console.log(movements);
+// parameters: accumulated, current, index, array
+// const balance = movements.reduce(function(acc, cur, i, arr){
+//   console.log(`Iteration number ${i}: ${acc}`);
+//   return acc + cur;
+// }, 0);
+// the 0 is where we want to start counting
+
+const balance = movements.reduce((acc, cur) =>  acc + cur, 0);
+
+console.log(balance);
+
+// doing the same thing with for of loop
+// let balance2 = 0;
+// for(const mov of movements) balance2 += mov;
+// console.log(balance2);
+
+// GETTING THE MAXIMUM VALUE OF THE MOVEMENTS ARRAY WITH REDUCE **************
+
+
+const max = movements.reduce((acc, mov) => acc < mov ? mov : acc, movements[0]);
+
+// don't use 0 here!
+
+  
+  console.log('******* MAX VALUE *******');
+  console.log(max);
