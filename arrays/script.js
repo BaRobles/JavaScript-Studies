@@ -359,29 +359,41 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 GOOD LUCK 😀
 */
 
-let calcAverageHumanAge = function(array){
-  const adultDogs = array
-    .filter((age) => age > 2)
-    .map((age) => 16 + age * 4)
-    .filter((age) => age >= 18);
+// let calcAverageHumanAge = function(array){
+//   const adultDogs = array
+//     .filter((age) => age > 2)
+//     .map((age) => 16 + age * 4)
+//     .filter((age) => age >= 18);
   
-  console.log('ADULT DOGS ARRAY');
-  console.log(adultDogs);
+//   console.log('ADULT DOGS ARRAY');
+//   console.log(adultDogs);
 
-  const babyDogs = array
-    .filter((age) => age <= 2)
-    .map((age) => age * 2);
+//   const babyDogs = array
+//     .filter((age) => age <= 2)
+//     .map((age) => age * 2);
+
+//   let average = adultDogs.reduce((acc, cur) =>  acc + cur, 0);
+//   average = average / adultDogs.length;
+//   console.log(average);
+// }
+
+// instructor's solution:
+const calcAverageHumanAge = function(ages) {
+  const humanAges = ages.map(age => age <= 2 ? 2 * age : 16 + age * 4 );
+  const adults = humanAges.filter(age => age >= 18);
+  console.log(humanAges);
+  console.log(adults);
+  // const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
   
-  // const humanAge = [...adultDogs];
-
-  let average = adultDogs.reduce((acc, cur) =>  acc + cur, 0);
-  average = average / adultDogs.length;
-  console.log(average);
+  // other way of calculate average
+  const average = adults.reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+  return average;
 }
 
 
-calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
-calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+console.log(avg1, avg2);
 
 console.log('=====================');
 
