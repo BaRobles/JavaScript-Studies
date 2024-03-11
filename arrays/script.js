@@ -547,6 +547,23 @@ console.log(totalDepositsUSD);
 
 // be aware of what each method returns!
 
+// ********** FIND METHOD ***********
+// retrieves an element of an array based on a condition
+// it will return the FIRST element that satisfies the condition
+// it is useful to find an object inside an array
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account); // will get only the object where Jessica Davis appears as an owner!
+
+// the same thing with for of
+for(const a of accounts) {
+  // if (a.owner === 'Jessica Davis')
+  //   console.log(a);
+  (a.owner === 'Jessica Davis') && console.log(a);
+}
 
 
 
