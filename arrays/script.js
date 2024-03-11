@@ -73,7 +73,7 @@ const displayMovements = function(movements) {
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}€</div>
     </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -86,11 +86,34 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function(movements){
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${balance}€`;
 };
 console.log('===== CALC DISPLAY');
 
 calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function(movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => deposit * 1.2/100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
 
 const createUsernames = function(accs){
   accs.forEach(function(acc){
@@ -256,7 +279,7 @@ const currencies = new Map([
 ]);
 
 currencies.forEach(function(value, key, map){
-  console.log(`${key}: ${value}`);
+  // console.log(`${key}: ${value}`);
 })
 //output:
 // USD: United States dollar
@@ -329,9 +352,9 @@ const checkDogs = function(dogsJulia, dogsKate) {
   const dogs = dogsJuliaCorrected.concat(dogsKate);
   dogs.forEach(function(dog, i) {
     if(dog <= 3) {
-      console.log(`Dog number ${i + 1} is still a puppy 🐶"`);
+      // console.log(`Dog number ${i + 1} is still a puppy 🐶"`);
     } else {
-      console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old`);
+      // console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old`);
     }
   });
 }
@@ -381,8 +404,8 @@ GOOD LUCK 😀
 const calcAverageHumanAge = function(ages) {
   const humanAges = ages.map(age => age <= 2 ? 2 * age : 16 + age * 4 );
   const adults = humanAges.filter(age => age >= 18);
-  console.log(humanAges);
-  console.log(adults);
+  // console.log(humanAges);
+  // console.log(adults);
   // const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
   
   // other way of calculate average
@@ -393,7 +416,7 @@ const calcAverageHumanAge = function(ages) {
 
 const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
 const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
-console.log(avg1, avg2);
+// console.log(avg1, avg2);
 
 console.log('=====================');
 
@@ -425,14 +448,14 @@ const movementsUSD = movements.map(mov => mov * eurToUsd);
 
 
 
-console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
-console.log(movementsUSD); // [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+// console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+// console.log(movementsUSD); // [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
 
 
 // doing the same thing as MAP but with for of
 const movementsUSDfor = [];
 for(const mov of movements) movementsUSDfor.push(mov * eurToUsd);
-console.log(movementsUSDfor);
+// console.log(movementsUSDfor);
 
 // MAP is more suitable for a functional programming, and it is more modern.
 
@@ -444,7 +467,7 @@ const movementsDescriptions = movements.map((mov, i) =>
   )}.`
 );
 
-console.log(movementsDescriptions);
+// console.log(movementsDescriptions);
 
 // output:
 // ['Movement 1: you deposited 200.', 'Movement 2: you deposited 450.', 'Movement 3: you withdrew 400', 'Movement 4: you deposited 3000.', 'Movement 5: you withdrew 650', 'Movement 6: you withdrew 130', 'Movement 7: you deposited 70.', 'Movement 8: you deposited 1300.']
@@ -456,9 +479,9 @@ const deposits = movements.filter(function(mov){
   return mov > 0;
 });
 
-console.log('MOVEMENTS');
-console.log(movements);
-console.log(deposits); // will print only the positive values!
+// console.log('MOVEMENTS');
+// console.log(movements);
+// console.log(deposits); // will print only the positive values!
 
 // doing the same thing with for of loop:
 // const depositsFor = [];
@@ -469,7 +492,7 @@ console.log(deposits); // will print only the positive values!
 
 const withdrawals = movements.filter(mov => mov < 0 );
 
-console.log(withdrawals);
+// console.log(withdrawals);
 
 // ******* REDUCE METHOD *******
 console.log(movements);
@@ -482,7 +505,7 @@ console.log(movements);
 
 const balance = movements.reduce((acc, cur) =>  acc + cur, 0);
 
-console.log(balance);
+// console.log(balance);
 
 // doing the same thing with for of loop
 // let balance2 = 0;
@@ -496,7 +519,20 @@ const max = movements.reduce((acc, mov) => acc < mov ? mov : acc, movements[0]);
 
 // don't use 0 here!
 
-  
-  console.log('******* MAX VALUE *******');
-  console.log(max);
+// CHAINING METHODS
+// taking all the movement deposits, convert them to US dolars and sum them up:
+
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
+
+// be aware of what each method returns!
+
+
+
+
+
 
