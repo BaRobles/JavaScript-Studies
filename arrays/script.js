@@ -203,6 +203,28 @@ btnTransfer.addEventListener('click', function(e){
 
 });
 
+// ********** FIND INDEX METHOD ***********
+// it returns the index of the first element in the array that matches the condition
+// indexOf() also returns an index, but this method can only search for the value contained on the array.
+// on findIndex, on the other hand, we can create a more complex condition (ex. element > 25)
+// so we are not as limited as in indexOf()
+btnClose.addEventListener('click', function(e){
+  e.preventDefault();
+  
+  if(
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username);
+      console.log(index);
+      
+      // delete account
+      accounts.splice(index, 1);
+      containerApp.style.opacity = 0;
+  };
+  inputCloseUsername.value = inputClosePin.value = '';
+});
 
 
 
@@ -619,6 +641,8 @@ for(const a of accounts) {
   //   console.log(a);
   (a.owner === 'Jessica Davis') && console.log(a);
 }
+
+
 
 
 
