@@ -360,6 +360,7 @@ movements.forEach(function(mov, index, array) {
 // you cannot breakout from a forEach loop, instead, it will always loop over the entire array. So if you need to break in the middle of the loop, use the for of loop.
 
 // ********* FOREACH WITH MAPS ***********
+// the map() method is used to create a new array by applying a function to each element of an existing array.
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -676,6 +677,41 @@ console.log(account4.movements.every(deposit)); // true
 console.log(movements.some(deposit)); // true
 console.log(movements.every(deposit)); // false
 console.log(movements.filter(deposit)); // [200, 450, 3000, 70, 1300]
+
+const arraay = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arraay.flat()); // [1, 2, 3, 4, 5, 6, 7, 8]
+// it only goes ONE level deep when flatening the array.
+// if there were another array inside the nested arrays above, it would NOT flaten it!
+const arrDeep = [[1, [2, 3]], [[4, 5], 6], 7, 8];
+// we can solve this by using the depth argument:
+console.log(arrDeep.flat(2)); // [1, 2, 3, 4, 5, 6, 7, 8]
+// the two in the method means it has to go 2 levels
+
+// using flat in the bakist app
+// first we create an array only with movements:
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements); // an array of movements
+
+// const allMovements = accountMovements.flat();
+// const overalBalance = allMovements.reduce((acc, mov) =
+
+// flat
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0)
+console.log(overalBalance);
+// using a map and then flat, is a pretty common opperation.
+// there is another method that combines both into one method, which is better for performance!
+
+// flatMap
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0)
+console.log(overalBalance2);
+// notice that the flatMap only goes one level deep!
+
+
 
 
 
