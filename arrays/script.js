@@ -199,9 +199,21 @@ btnTransfer.addEventListener('click', function(e){
     // update user interface
     updateUI(currentAccount);
   }
-
-
 });
+
+btnLoan.addEventListener('click', function(e){
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount)
+  }
+  inputLoanAmount.value = '';
+});
+
 
 // ********** FIND INDEX METHOD ***********
 // it returns the index of the first element in the array that matches the condition
@@ -642,9 +654,28 @@ for(const a of accounts) {
   (a.owner === 'Jessica Davis') && console.log(a);
 }
 
+// ********** SOME AND EVERY ***********
 
+console.log(movements);
+// includes checks only for equality
+console.log(movements.includes(-130));
 
+// SOME
+// some allows us to use conditions!
+const anyDeposits = movements.some(mov => mov > 1500)
+console.log(anyDeposits);
 
+// EVERY
+console.log(movements.every(mov => mov > 0)); // false
+// console.log(account4.movements.every(mov => mov > 0)); // true
+
+// Separate callback
+
+const deposit = mov => mov > 0;
+console.log(account4.movements.every(deposit)); // true
+console.log(movements.some(deposit)); // true
+console.log(movements.every(deposit)); // false
+console.log(movements.filter(deposit)); // [200, 450, 3000, 70, 1300]
 
 
 
