@@ -64,10 +64,15 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 
-const displayMovements = function(movements) {
+const displayMovements = function(movements, sort = false) {
   containerMovements.innerHTML = '';
+// creating a mechanism to set ascending and descending order for the movements array
+// in the condition below, we check if sort parameter is true or false
+// slice here is to create a copy of movements, because we don't want to modify the original array
+  const movs = sort ? movements.slice('').sort((a, b) => a - b) : movements;
+// this above is related to to the btnSort button event listener
 
-  movements.forEach(function(mov, i){
+  movs.forEach(function(mov, i){
     const type = mov > 0 ? 'deposit' : 'withdrawal'
 
     const html = `
@@ -238,6 +243,13 @@ btnClose.addEventListener('click', function(e){
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
+let sorted = false;
+btnSort.addEventListener('click', function(e){
+  e.preventDefault();
+// if it is false, then it should be true, that's why we are using !sorted
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+})
 
 
 
@@ -712,6 +724,45 @@ console.log(overalBalance2);
 // notice that the flatMap only goes one level deep!
 
 
+// ******* SORTING ARRAYS *******
+
+// with strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); // ['Adam', 'Jonas', 'Martha', 'Zach']
+// this actually mutates original array
+
+// numbers
+console.log(movements);
+console.log(movements.sort()); // is not ordered, because the sort treats the values as strings... so the numbers will the ordered 'alphabetically' so  the - is the first, then 1, 2... 
+// how to solve this:
+// ascending order:
+movements.sort((a, b) => {
+  if(a > b) return 1 // switches the order
+  if (b > a) return -1 // keeps oder
+});
+// a = current value
+// b = next value
+
+// return < 0 (keep order)
+// return > 0 (switch order)
+console.log(movements); // [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+
+// descending order:
+movements.sort((a, b) => {
+  if(a > b) return -1
+  if (b > a) return 1
+});
+console.log(movements); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+
+// but, since we are trying to figure out which is greater than which, a > b would also means that a - b would return a positive value. And a - b would return a negative value. So we can write things like this:
+// ascending
+movements.sort((a, b) => a - b );
+console.log(movements);
+
+// descending
+movements.sort((a, b) => b - a );
+console.log(movements);
 
 
 
