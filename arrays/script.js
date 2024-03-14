@@ -249,7 +249,7 @@ btnSort.addEventListener('click', function(e){
 // if it is false, then it should be true, that's why we are using !sorted
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
-})
+});
 
 
 
@@ -764,5 +764,45 @@ console.log(movements);
 movements.sort((a, b) => b - a );
 console.log(movements);
 
+// ***** WAYS OF CREATING AND FILLING ARRAYS ******
+const x = new Array(7);
+console.log(x.map(() => 5)); // [empty × 7]
 
+// x.fill(1);
+// console.log(x); // [1, 1, 1, 1, 1, 1, 1]
+// x.fill(1, 3);
+// console.log(x); // [empty × 3, 1, 1, 1, 1]
+x.fill(1, 3, 5);
+console.log(x); // [empty × 3, 1, 1, empty × 2]
+
+// we can mutate arrays:
+const arraaay = [1, 2, 3, 4, 5, 6, 7];
+arraaay.fill(23, 2, 6);
+console.log(arraaay); // [1, 2, 23, 23, 23, 23, 7]
+
+// ********* ARRAY.FROM **********
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y); // [1, 1, 1, 1, 1, 1, 1]
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1)
+console.log(z); // [1, 2, 3, 4, 5, 6, 7]
+
+// dice rolling array
+const dice = Array.from({ length: 7}, () => Math.floor(Math.random() * 6 + 1))
+console.log(dice);
+
+// let's say we don't have the values in movements in an array and want to sum them.
+// let's put them together in an array:
+
+labelBalance.addEventListener('click', function (){
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'), el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  // another way to convert a NodeList to an array is using spread, but in this case we would have to apply map method separatly
+  // const movementsUI2 = [...document.querySelectorAll('.movements__value')]
+});
+
+// the querySelector above is to call the elements we want to convert in an array
 
