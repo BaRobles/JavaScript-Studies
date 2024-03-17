@@ -594,23 +594,71 @@ if(sarahsDog.curFood < sarahsDog.recommendedFood * 0.9){
   console.log('Sarah\'s Dog is eating too much!');
 }
 
-let ownersEatTooMuch;
-let ownersEatTooLittle;
-ownersEatTooMuch = dogs
-  .map(dog => {
-    if(dog.curFood > dog.recommendedFood){
+
+let ownersEatTooMuch = dogs
+.flatMap(dog => {
+  if(dog.curFood > dog.recommendedFood * 1.1){
+    return dog.owners
+  } 
+})
+.filter(owners => owners !== undefined);
+
+let ownersEatTooLittle = dogs
+  .flatMap(dog => {
+    if(dog.curFood < dog.recommendedFood * 0.9){
       return dog.owners
     } 
   })
   .filter(owners => owners !== undefined);
 
 console.log(ownersEatTooMuch);
-console.log(dogs.map(dog => dog.curFood < dog.recommendedFood));
+
+console.log(ownersEatTooLittle);
+
+const phraseMuch = ownersEatTooMuch.reduce((acc, cur, i) => {
+  if(i === ownersEatTooMuch.length - 1){
+    return acc + cur;
+  } else {
+    return cur + ' and ' + acc;
+  }
+}, '');
+console.log(`${phraseMuch}'s dogs eat too much!`);
+
+const phraseLittle = ownersEatTooLittle.reduce((acc, cur, i) => {
+  if(i === ownersEatTooLittle.length - 1){
+    return acc + cur;
+  } else {
+    return cur + ' and ' + acc;
+  }
+}, '');
+console.log(`${phraseLittle}'s dogs eat too little!`);
+
+const dogsEatingExactly = dogs.some(dog => dog.curFood === dog.recommendedFood);
+
+console.log(dogsEatingExactly);
+
+const dogsEatingRight = dogs.some(dog => 
+  dog.curFood < dog.recommendedFood * 1.1 && dog.curFood > dog.recommendedFood * 0.9
+);
+console.log(dogsEatingRight);
+
+const dogsEatingArray = dogs.filter(dog => {
+  if(dog.curFood < dog.recommendedFood * 1.1 && dog.curFood > dog.recommendedFood * 0.9){
+    return dog
+  }
+});
+console.log(dogsEatingArray);
 
 
+const copyOfDogs = [...dogs];
+
+copyOfDogs.sort((a, b) => a.recommendedFood - b.recommendedFood);
+
+console.log(copyOfDogs);
+console.log(dogs);
 
 
-
+console.log('==============');
 // *************************************************************
 
 // DATA TRANSFORMATIONS WITH MAP, FILTER AND REDUCE
